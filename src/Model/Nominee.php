@@ -11,7 +11,7 @@ class Nominee{
     return $q->fetch();
   }
 
-  public static function getWinners(){
+  public static function getWinners($pdo){
     $q = $pdo->prepare('SELECT * FROM '.self::TABLE_NAME.' WHERE winner = 1');
     $winners = $q->execute();
     return $q->fetchAll();
