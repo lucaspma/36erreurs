@@ -1,18 +1,21 @@
 <?php
+
 namespace Controller;
-use ThirtySix\Connexion;
+
 use Model\Nominee;
+use ThirtySix\Connexion;
 use Model\User;
-class CesarController{
-  public function gagnantsAction(){
-    
-    $winners = \Model\Nominee::getWinners($pdo);
-
-    $bestplayers = \Model\User::getBest($pdo);
-
+use Model\Category;
+class CesarController
+{
+  public function gagnantsAction()
+  {
+    $pdo = Connexion::getInstance();
+    $winners = Nominee::getWinners($pdo);
+    $bestplayers = User::getBest($pdo);
     $categories = [];
     foreach ($winners as $winner) {
-      $categories[$winner['category_id']] = \Model\Category::getById($pdo, $winner['category_id']);
+      $categories[$winner['category_id']] = Category::getById($pdo, $winner['category_id']);
     }
     include "./winners.php";
   }
